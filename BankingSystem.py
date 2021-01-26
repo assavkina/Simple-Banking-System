@@ -2,11 +2,23 @@ import random
 import sys
 
 
+def luhn_alg(num):
+    digits = list(map(int, list(num)))
+    digits = [digits[k] * 2 if k % 2 == 0 else digits[k] for k in range(len(digits))]
+    digits = [num - 9 if num > 9 else num for num in digits]
+    last_digit = 10 - sum(digits) % 10
+    if last_digit == 10:
+        return 0
+    else:
+        return last_digit
+
+
 def get_number():
     num = '400000'
-    for i in range(10):
+    for i in range(9):
         num = num + str(random.randint(0, 9))
-    return num
+    last_digit = luhn_alg(num)
+    return num + str(last_digit)
 
 
 def get_pin():
